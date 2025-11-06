@@ -142,7 +142,7 @@ void mtxDiagonalSum(Matrix &mtxz){
     cout << "Sum of secondary diagonal: " << seconddiag << endl;
 }
 //mtxRowSwap takes in a matrix and two rows that will then be swapped
-void mtxRowSwap(Matrix &mtxz, int row1, int row2){
+void mtxRowSwap(Matrix &mtxz, int row1 = 0, int row2 = 1){
     //creates copy of mtxz we passed in as parameter
     Matrix outputMtx = mtxz;
     //creates row called temp which stores row1
@@ -156,7 +156,7 @@ void mtxRowSwap(Matrix &mtxz, int row1, int row2){
     outputMtx.print();
 }
 //mtxColSwap takes in a mtxz, col2, and col2 as parameters and swaps the two columns
-void mtxColSwap(Matrix &mtxz, int col1, int col2){
+void mtxColSwap(Matrix &mtxz, int col1 = 0, int col2 = 1){
     //creates outputMtx
     Matrix outputMtx;
     for (int i = 0; i < mtxz.mtxSize(); i++) {
@@ -183,7 +183,7 @@ void mtxColSwap(Matrix &mtxz, int col1, int col2){
     outputMtx.print();    
 }
 //mtxUpdateVal takes in a mtxz, a row, a col, and a val and then sets that index of mtxz to the new val.
-void mtxUpdateVals(Matrix &mtxz, int row, int col, int val){
+void mtxUpdateVals(Matrix &mtxz, int row = 0, int col = 0, int val = 100){
     Matrix outputMtx;
     for (int i = 0; i < mtxz.mtxSize(); i++) {
         vector<string> newrow;
@@ -263,77 +263,139 @@ int main(){
     string task5mtx;
     int task5row1;
     int task5row2;
+    char choice5;
     cout << "Which matrix do you want to swap a row in? \"matrix1\" or \"matrix2\": ";
     cin >> task5mtx;
-    cout << "What is the 1st row you want to swap?: ";
-    cin >> task5row1;
-    cout << "What is the 2nd row you want to swap?: ";
-    cin >> task5row2;
-    if (task5mtx == "matrix1"){
-        if (boundchecker(mtx1,task5row1,task5row2)) mtxRowSwap(mtx1,task5row1,task5row2);
-        //handles if invalid index was entered
-        else cout << "You have entered an invalid index";
-    }else if (task5mtx == "matrix2"){
-        if (boundchecker(mtx2,task5row1,task5row2)) mtxRowSwap(mtx2,task5row1,task5row2);
-        //handles if invalid index was entered
-        else cout << "You have entered an invalid index";
-    //handles error when input for desired matrix is invalid
+    cout << "Would you like to input the rows to swap? \"y\" or \"n\": ";
+    cin >> choice5;
+    //uses default swap if user does not want to specify. 
+    if(choice5 == 'n'){
+        //handles matrix1 swap
+        if (task5mtx == "matrix1"){
+            mtxRowSwap(mtx1);
+        //handles matrix2 swap
+        }else if (task5mtx == "matrix2"){
+            mtxRowSwap(mtx2);
+        //handles error when input for desired matrix is invalid
+        }else{
+            cout << "You have entered something invalid for task 5";
+            return(1);
+        }      
+    //prompts and uses user bounds for swap if they specified that they wanted to use thier own bounds. 
+    }else if(choice5 == 'y'){
+        cout << "What is the 1st row you want to swap?: ";
+        cin >> task5row1;
+        cout << "What is the 2nd row you want to swap?: ";
+        cin >> task5row2;
+        //handles swap for matrix1
+        if (task5mtx == "matrix1"){
+            if (boundchecker(mtx1,task5row1,task5row2)) mtxRowSwap(mtx1,task5row1,task5row2);
+            //handles if invalid index was entered
+            else cout << "You have entered an invalid index";
+        //handles swap for matrix2
+        }else if (task5mtx == "matrix2"){
+            if (boundchecker(mtx2,task5row1,task5row2)) mtxRowSwap(mtx2,task5row1,task5row2);
+            //handles if invalid index was entered
+            else cout << "You have entered an invalid index";
+        //handles error when input for desired matrix is invalid
+        }else{
+            cout << "You have entered something invalid for task 5";
+            return(1);
+        }
+    //if user did not input y or n prints this line
     }else{
-        cout << "You have entered something invalid for task 5";
+        cout << "You have entered invalid input choice for task5";
         return(1);
-    } 
+    }
 
     //task6: asks user for which matrix, and two column values to then swap the columns using boundchecker to check the inputted values and mtxColSwap to swap them.
     cout << "\n-----Task6-----\n";
     string task6mtx;
     int task6col1;
     int task6col2;
+    char choice6;
     cout << "Which matrix do you want to swap a column in? \"matrix1\" or \"matrix2\": ";
     cin >> task6mtx;
-    cout << "What is the 1st column you want to swap?: ";
-    cin >> task6col1;
-    cout << "What is the 2nd column you want to swap?: ";
-    cin >> task6col2;
-    if (task6mtx == "matrix1"){
-        if (boundchecker(mtx1,task6col1,task6col2)) mtxColSwap(mtx1,task6col1,task6col2);
-        //handles if invalid index was entered
-        else cout << "You have entered an invalid index";
-    }else if (task6mtx == "matrix2"){
-        if (boundchecker(mtx2,task6col1,task6col2)) mtxColSwap(mtx2,task6col1,task6col2);
-        //handles if invalid index was entered
-        else cout << "You have entered an invalid index";
-    //handles error when input for desired matrix is invalid
+    cout << "Would you like to input the columns to swap? \"y\" or \"n\": ";
+    cin >> choice6;
+    //uses default swap if user does not want to specify.
+    if(choice6 == 'n'){
+        if (task6mtx == "matrix1"){
+            mtxColSwap(mtx1);
+        }else if (task6mtx == "matrix2"){
+            mtxColSwap(mtx2);
+        //handles error when input for desired matrix is invalid
+        }else{
+            cout << "You have entered something invalid for task 6";
+            return(1);
+        }\
+    //allows user to specify the columns to swap
+    }else if(choice6 == 'y'){
+        cout << "What is the 1st column you want to swap?: ";
+        cin >> task6col1;
+        cout << "What is the 2nd column you want to swap?: ";
+        cin >> task6col2;
+        if (task6mtx == "matrix1"){
+            if (boundchecker(mtx1,task6col1,task6col2)) mtxColSwap(mtx1,task6col1,task6col2);
+            //handles if invalid index was entered
+            else cout << "You have entered an invalid index";
+        }else if (task6mtx == "matrix2"){
+            if (boundchecker(mtx2,task6col1,task6col2)) mtxColSwap(mtx2,task6col1,task6col2);
+            //handles if invalid index was entered
+            else cout << "You have entered an invalid index";
+        //handles error when input for desired matrix is invalid
+        }else{
+            cout << "You have entered something invalid for task 6";
+            return(1);
+        }
+    //if y or n was not input runs this error.
     }else{
-        cout << "You have entered something invalid for task 6";
+        cout << "You have entered invalid input choice for task6";
         return(1);
     }
-    
     //task7: asks user for which matrix, a row, a column, and a value and then uses boundchecker to check the inputted values and mtxUpdateVals to get the updated matrix.
     cout << "\n-----Task7-----\n";
     string task7mtx;
     int task7row;
     int task7col;
     int task7val;
+    char choice7;
     cout << "Which matrix do you want to swap a value in? \"matrix1\" or \"matrix2\": ";
     cin >> task7mtx;
-    cout << "What is the row you want to swap?: ";
-    cin >> task7row;
-    cout << "What is the column you want to swap?: ";
-    cin >> task7col;
-    cout << "What is the value to swap in?: ";
-    cin >> task7val;
-    if (task7mtx == "matrix1"){
-        if (boundchecker(mtx1,task7row,task7col)) mtxUpdateVals(mtx1,task7row,task7col,task7val);
-        //handles if invalid index was entered
-        else cout << "You have entered an invalid index";
-    }else if (task7mtx == "matrix2"){
-        if (boundchecker(mtx2,task7row,task7col)) mtxUpdateVals(mtx2,task7row,task7col,task7val);
-        //handles if invalid index was entered
-        else cout << "You have entered an invalid index";
-    //handles error when input for desired matrix is invalid
+    cout << "Would you like to input the rows to swap? \"y\" or \"n\": ";
+    cin >> choice7;
+    if(choice7 == 'n'){
+        if (task7mtx == "matrix1"){
+           mtxUpdateVals(mtx1);
+        }else if (task7mtx == "matrix2"){
+            mtxUpdateVals(mtx2);
+        //handles error when input for desired matrix is invalid
+        }else{
+            cout << "You have entered something invalid for task 7";
+            return(1);
+        }
+    }else if(choice7 == 'y'){
+        cout << "What is the row you want to swap?: ";
+        cin >> task7row;
+        cout << "What is the column you want to swap?: ";
+        cin >> task7col;
+        cout << "What is the value to swap in?: ";
+        cin >> task7val;
+        if (task7mtx == "matrix1"){
+            if (boundchecker(mtx1,task7row,task7col)) mtxUpdateVals(mtx1,task7row,task7col,task7val);
+            //handles if invalid index was entered
+            else cout << "You have entered an invalid index";
+        }else if (task7mtx == "matrix2"){
+            if (boundchecker(mtx2,task7row,task7col)) mtxUpdateVals(mtx2,task7row,task7col,task7val);
+            //handles if invalid index was entered
+            else cout << "You have entered an invalid index";
+        //handles error when input for desired matrix is invalid
+        }else{
+            cout << "You have entered something invalid for task 7";
+            return(1);
+        }
     }else{
-        cout << "You have entered something invalid for task 7";
+        cout << "You have entered invalid input choice for task7";
         return(1);
     }
-
 }

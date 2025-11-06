@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS= -c -Wall
+CFLAGS= -c -w -Wall
 
 all: matrix
 
