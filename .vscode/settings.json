@@ -1,0 +1,7 @@
+{
+    "editor.tokenColorCustomizations": {
+        "comments": "",
+        "textMateRules": []
+    },
+    "C_Cpp.default.compilerPath": "/usr/bin/g++"
+}
